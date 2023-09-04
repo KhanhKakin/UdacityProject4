@@ -1,0 +1,57 @@
+{
+	"name": "Data_Flow_Load_Data_To_TITLE",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "TitleMaster",
+						"type": "DatasetReference"
+					},
+					"name": "SourceTittle",
+					"description": "SourceTittle"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "NYC_Payroll_TITLE_MD",
+						"type": "DatasetReference"
+					},
+					"name": "SinkTittle",
+					"description": "Sink_dbo.Tittle",
+					"rejectedDataLinkedService": {
+						"referenceName": "DataLakeGen2StoreData",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: true,",
+				"     limit: 100,",
+				"     ignoreNoFilesFound: false) ~> SourceTittle",
+				"SourceTittle sink(allowSchemaDrift: false,",
+				"     validateSchema: true,",
+				"     input(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> SinkTittle"
+			]
+		}
+	}
+}

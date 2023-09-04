@@ -1,0 +1,9 @@
+{
+	"name": "KhanhNH17DataLakeGen2",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5fc5b1ed-7d31-4adf-ae5d-474a63f0b2de",
+		"tenantId": "4193b5f8-7d87-4126-874e-19304685273c"
+	}
+}
